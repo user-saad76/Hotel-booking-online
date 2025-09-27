@@ -1,5 +1,6 @@
 import  User  from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const signupUser = async (req, res) => {
     
@@ -15,8 +16,8 @@ export const signupUser = async (req, res) => {
 };  export const signinUser = async (req, res) => {
     
     const {email,password} = req.body;
-      const user =  await User.find({email})
-    console.log(user);
+      const user =  await User.findOne({email});
+    console.log( "user",user);
    
    await User.create(user)
    if(!user || user.length === 0 ){
@@ -26,13 +27,29 @@ export const signupUser = async (req, res) => {
      })
    }
 
-  const isMatched =  await bcrypt.compare(password,user[0].password)
-  if(!isMatched){
-    return res.status(401).json({
+   const isMatched =  await bcrypt.compare(password,user[0].password)
+   if(!isMatched){
+     return res.status(401).json({
         success:false,
-        message:'Invalid password'
-    })
-  }
+         message:'Invalid password'
+     })
+   }
+
+  
+
+  //Sign a JWT Token
+  
+    const token = jwt.sign(user,process.env.JWT_SECRET, { expiresIn: '1h' })
+     res.cookies("jwt-token", token,{httpOnly:true,maxAge:900000})
+
+
+
+
+
+
+
+
+
   res.json({
     message: "user found",
   });
