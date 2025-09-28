@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import { connectDB } from "./config/db.js";
 import cors from 'cors'
 import UserRoutes from './routes/user.routes.js'
+import cookieParser from "cookie-parser";
 
 const server = express();
 const port =  process.env.PORT || 5000
@@ -12,8 +13,12 @@ connectDB().catch((e)=>console.log("Error in Correction",e))
 
 
 
-server.use(cors())
+server.use(cors({
+  origin: "http://localhost:5173", // your frontend
+  credentials: true            // allow cookies
+}))
 server.use(bodyParser.json())
+server.use(cookieParser())
 server.use(HotelRoutes)
 server.use(UserRoutes)
 

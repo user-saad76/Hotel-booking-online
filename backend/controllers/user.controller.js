@@ -27,31 +27,29 @@ export const signupUser = async (req, res) => {
      })
    }
 
-   const isMatched =  await bcrypt.compare(password,user[0].password)
+   const isMatched =  await bcrypt.compare(password,user.password)
    if(!isMatched){
      return res.status(401).json({
         success:false,
          message:'Invalid password'
      })
    }
-
-  
-
   //Sign a JWT Token
   
-    const token = jwt.sign(user,process.env.JWT_SECRET, { expiresIn: '1h' })
-     res.cookies("jwt-token", token,{httpOnly:true,maxAge:900000})
+  const token = jwt.sign({
+    id:user._id,
+    email:user.email,
+    name:user.fullname,
+    role:user.role
+  },process.env.JWT_SECRET, { expiresIn: '1h' });
 
-
-
-
-
-
-
-
-
+   res.cookie("jwt-token", token, {
+  httpOnly: true,   // prevents client-side JS from accessing cookie
+  maxAge: 3600000,// 60 minutes
+   secure:false,
+});
   res.json({
-    message: "user found",
+    message: "user has been logged in ",
   });
 
 };

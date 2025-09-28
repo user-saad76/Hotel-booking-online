@@ -11,6 +11,7 @@ export function usePost(url) {
     try {
       const res = await fetch(url, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
