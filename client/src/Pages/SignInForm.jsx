@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePost } from "../hook/usePost";
+import { useNavigate } from "react-router";
 
 // ✅ Zod Schema for Login Validation
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
+
 
 function SignInForm() {
   const {
@@ -19,7 +21,7 @@ function SignInForm() {
     resolver: zodResolver(loginSchema),
   });
 
-
+  const navigate = useNavigate()
  const {postData, data, error, loading} =  usePost('http://localhost:7000/users/signin')
 
 
@@ -30,6 +32,7 @@ function SignInForm() {
     console.log("Login Data:", data);
     alert("✅ Logged in successfully!");
     await postData(data)
+    navigate('/');
   };
 
   return (

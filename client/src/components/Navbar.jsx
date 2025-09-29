@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 
 
-const Navbar = () => {
+const Navbar = ({user}) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
       <div className="container">
@@ -50,7 +50,32 @@ const Navbar = () => {
 
             {/* Dropdown for Login/Signup */}
             <li className="nav-item dropdown">
-              <a
+
+                {
+                   user && user.fullname?(
+                   <>
+                             <a
+                className="nav-link dropdown-toggle btn btn-light text-dark ms-2 px-3"
+                href="#"
+                id="accountDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {user?.fullname}
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                <li>
+                  <Link className="dropdown-item" to ="/logout">
+                    log out
+                  </Link>
+                </li>
+
+              </ul>
+                   </>
+                  ):(
+                      <>
+                         <a
                 className="nav-link dropdown-toggle btn btn-light text-dark ms-2 px-3"
                 href="#"
                 id="accountDropdown"
@@ -72,6 +97,13 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>
+                      </>
+                  
+              
+                  )
+                }
+
+
             </li>
           </ul>
         </div>
