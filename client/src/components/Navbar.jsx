@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { useAuth } from "../contexts/AuthProvider";
 
-
-const Navbar = ({user}) => {
+const Navbar = () => {
+     const  {user,error,loading,logout} = useAuth();
+     
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
       <div className="container">
@@ -51,7 +53,7 @@ const Navbar = ({user}) => {
             {/* Dropdown for Login/Signup */}
             <li className="nav-item dropdown">
 
-                {
+                 {
                    user && user.fullname?(
                    <>
                              <a
@@ -62,13 +64,13 @@ const Navbar = ({user}) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {user?.fullname}
+                {loading?"loading":user?.fullname}
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
                 <li>
-                  <Link className="dropdown-item" to ="/logout">
+                  <button onClick={logout}className="dropdown-item" >
                     log out
-                  </Link>
+                  </button>
                 </li>
 
               </ul>
@@ -101,9 +103,7 @@ const Navbar = ({user}) => {
                   
               
                   )
-                }
-
-
+                } 
             </li>
           </ul>
         </div>

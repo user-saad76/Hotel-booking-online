@@ -12,6 +12,7 @@ import HotelDetail from './Pages/HotelDetail';
 import { useFetch } from './hook/useFetch';
 import SignupForm from './Pages/SignUpForm';
 import SignInForm from './Pages/SignInForm';
+import AuthProvider from './contexts/AuthProvider';
 
 
 function App() {
@@ -19,18 +20,16 @@ function App() {
    //console.log( "hotel-data",hotels);
 
 
-  const {data:user,error:meError,loading:meLoading} = useFetch('http://localhost:7000/users/me')
+  //const {data:user,error:meError,loading:meLoading} = useFetch('http://localhost:7000/users/me')
 
-  console.log(user)
 
    const {data:hotels,error,loading} = useFetch('http://localhost:7000/hotels')
-
  
-   
   return (
     <>
+    <AuthProvider>
     <BrowserRouter>
-      <Navbar user={user}/>
+      <Navbar/>
     <Routes> 
       <Route path='/home' element = {<Home/>} />
        <Route path='/' element = {<Home/>} />
@@ -41,7 +40,8 @@ function App() {
              <Route path='/sign-in' element = {<SignInForm/>} />
              <Route path='/sign-up' element = {< SignupForm/>} />
     </Routes>
-  </BrowserRouter>  
+  </BrowserRouter>
+  </AuthProvider>
     </>
   )
 }

@@ -44,7 +44,8 @@ export const signupUser = async (req, res) => {
   },process.env.JWT_SECRET, { expiresIn: '1h' });
 
    res.cookie("jwt-token", token, {
-  httpOnly: true,   // prevents client-side JS from accessing cookie
+  httpOnly: true,
+   sameSite: "lax",   // prevents client-side JS from accessing cookie
   maxAge: 3600000,// 60 minutes
    secure:false,
 });
@@ -57,4 +58,18 @@ export const signupUser = async (req, res) => {
 export const getMe = async(req,res,next)=>{
     const user =  await User.findById(req.user.id).select("-password");
     res.status(200).json(user)
+}
+
+export const logout = async(req,res,next)=>{
+    
+   res.cookie("jwt-token", null, {
+  httpOnly: true,   
+   sameSite: "lax",    // recommended for CSRF protection
+    expires: new Date(0),
+   secure:false,
+   
+});
+res.json({
+    message: "user has been logged out ",
+  })
 }
