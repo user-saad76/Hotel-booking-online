@@ -13,6 +13,8 @@ import { useFetch } from './hook/useFetch';
 import SignupForm from './Pages/SignUpForm';
 import SignInForm from './Pages/SignInForm';
 import AuthProvider from './contexts/AuthProvider';
+import Dashboard from './Pages/Dashboard';
+import Protected from './Pages/Protected';
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
            <Route path='/hotels/:slug' element = {<HotelDetail hotels={hotels}/>} />
              <Route path='/sign-in' element = {<SignInForm/>} />
              <Route path='/sign-up' element = {< SignupForm/>} />
+             <Route path='/dashboard' element = {<Protected><Dashboard/></Protected>} />
     </Routes>
   </BrowserRouter>
   </AuthProvider>

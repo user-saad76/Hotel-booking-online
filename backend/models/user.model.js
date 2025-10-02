@@ -34,9 +34,9 @@ const userSchema = new mongoose.Schema(
     },
 
     // 🔹 Profile picture
-    avatar: {
-      type: String, // Cloudinary URL or local path
-      default: "",
+     mainImage: {
+      public_id: { type: String },
+      secure_url: { type: String }
     },
 
     // 🔹 Address

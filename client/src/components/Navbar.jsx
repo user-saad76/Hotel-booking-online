@@ -68,6 +68,9 @@ const Navbar = () => {
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
                 <li>
+                   <Link to = '/dashboard' className="dropdown-item" >
+                     Dashboard
+                  </Link>
                   <button onClick={logout}className="dropdown-item" >
                     log out
                   </button>
