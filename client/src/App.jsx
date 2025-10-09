@@ -17,6 +17,8 @@ import Dashboard from './Pages/Dashboard';
 import Protected from './Pages/Protected';
 
 import Review from './components/Review';
+import PaymentSuccess from './Pages/PaymentSuccess';
+import PaymentCancel from './Pages/PaymentCancel';
 
 
 
@@ -53,6 +55,8 @@ function App() {
              <Route path='/sign-up' element = {< SignupForm/>} />
              <Route path='/dashboard' element = {<Protected><Dashboard/></Protected>} />
                <Route path='/review' element = {<Protected><Review reviews={reviews} /></Protected>} />
+               <Route path='/success' element = {<Protected><PaymentSuccess/></Protected>} />
+                <Route path='/cancel' element = {<Protected><PaymentCancel/></Protected>} />
     </Routes>
   </BrowserRouter>
   </AuthProvider>
