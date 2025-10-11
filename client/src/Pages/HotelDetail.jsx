@@ -59,13 +59,16 @@ function HotelDetail({ hotels }) {
       // Load Stripe with public key
       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
       // or use process.env.REACT_APP_STRIPE_PUBLIC_KEY if CRA
+        // ✅ GET TOKEN
+       const token = localStorage.getItem("token");
 
       // Call backend to create checkout session
       const response = await fetch(
         "http://localhost:7000/checkout/sessions",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, },
           body: JSON.stringify(bookingData),
         }
       );

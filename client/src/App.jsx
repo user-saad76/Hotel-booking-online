@@ -55,8 +55,8 @@ function App() {
              <Route path='/sign-up' element = {< SignupForm/>} />
              <Route path='/dashboard' element = {<Protected><Dashboard/></Protected>} />
                <Route path='/review' element = {<Protected><Review reviews={reviews} /></Protected>} />
-               <Route path='/success' element = {<Protected><PaymentSuccess/></Protected>} />
-                <Route path='/cancel' element = {<Protected><PaymentCancel/></Protected>} />
+               <Route path='/success' element = {<PaymentSuccess/>} />
+                <Route path='/cancel' element = {<PaymentCancel/>} />
     </Routes>
   </BrowserRouter>
   </AuthProvider>

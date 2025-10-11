@@ -3,3 +3,244 @@
 .overlay img {
     width: 100%;
 }
+/* 🌙 General Navbar Styling */
+.navbar {
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f8f9fa !important;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar-brand:hover {
+  color: #0dcaf0 !important;
+  transform: scale(1.03);
+}
+
+/* 🌐 Nav Links */
+.navbar-nav .nav-link {
+  color: #dcdcdc !important;
+  font-weight: 500;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #0dcaf0 !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding-inline: 10px;
+}
+
+/* 📨 Dropdown Menu Styling */
+.dropdown-menu {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  animation: dropdownFade 0.2s ease-in-out;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #ffeaea;
+}
+
+/* 🧍 Admin Avatar */
+.admin-avatar {
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border: 2px solid #0dcaf0;
+  transition: transform 0.3s ease;
+}
+
+.nav-link.dropdown-toggle:hover .admin-avatar {
+  transform: scale(1.05);
+}
+
+/* 🧭 Offcanvas Sidebar */
+.offcanvas {
+  width: 250px !important;
+  background: #1c1f26 !important;
+}
+
+.offcanvas-header {
+  background: #2b3038;
+}
+
+.offcanvas-title {
+  color: #0dcaf0;
+  font-weight: 600;
+}
+
+.offcanvas-body {
+  padding: 0;
+}
+
+.offcanvas-body a {
+  display: block;
+  padding: 12px 18px;
+  color: #ddd;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.offcanvas-body a:hover {
+  background-color: rgba(13, 202, 240, 0.1);
+  color: #0dcaf0;
+}
+
+/* 📱 Responsive */
+@media (max-width: 992px) {
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  .nav-link {
+    font-size: 0.95rem;
+  }
+  .offcanvas {
+    width: 220px !important;
+  }
+}
+
+/* ✨ Animation */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* 🌍 Booking Page Styling */
+.container {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 🔍 Search Bar */
+.input-group input {
+  border-radius: 8px 0 0 8px;
+  border: 1px solid #ced4da;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #0dcaf0;
+  box-shadow: 0 0 4px rgba(13, 202, 240, 0.3);
+}
+
+.input-group .btn {
+  border-radius: 0 8px 8px 0;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.input-group .btn:hover {
+  background-color: #0bb3d9;
+}
+
+/* 🏨 Hotel Card */
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  background: #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* 🖼️ Hotel Image */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* 📋 Card Body */
+.card-body {
+  padding: 1rem 1.25rem;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.text-muted {
+  color: #6c757d !important;
+  font-size: 0.9rem;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 🔗 View Details Button */
+.btn-outline-primary {
+  border-radius: 6px;
+  border-color: #0dcaf0;
+  color: #0dcaf0;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0dcaf0;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1.2rem;
+  }
+
+  .card-img-top {
+    height: 180px;
+  }
+}

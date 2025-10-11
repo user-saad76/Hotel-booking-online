@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function PaymentSuccess() {
   const [searchParams] = useSearchParams();
@@ -15,12 +16,14 @@ function PaymentSuccess() {
 
   const confirmPayment = async (sessionId) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         "http://localhost:7000/payment/confirm",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sessionId }),
+          headers: { "Content-Type": "application/json" , 
+            "Authorization": `Bearer ${token}`, },
+          body: JSON.stringify({ sessionId}),
         }
       );
 
@@ -58,7 +61,9 @@ function PaymentSuccess() {
       ) : (
         <p>Fetching session details...</p>
       )}
+      
     </div>
+   
   );
 }
 

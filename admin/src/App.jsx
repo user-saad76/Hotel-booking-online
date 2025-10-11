@@ -1,16 +1,15 @@
 
 import './App.css'
 import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
 import AddHotelForm from './pages/AddHotelForm';
 import Home from './pages/Home'
-import { BrowserRouter, Route, Routes } from "react-router";   // ✅ fixed
+import { BrowserRouter, Route, Routes } from "react-router";  
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="container-fluid position-relative d-flex p-0">
-        <Sidebar />
+     
+       
         <div className="content">
           <Navbar />
           <Routes>
@@ -19,7 +18,7 @@ function App() {
           </Routes>
           <Home />
         </div>
-      </div>
+      
     </BrowserRouter>
   );
 }
