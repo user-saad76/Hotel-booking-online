@@ -2,23 +2,20 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import AddHotelForm from './pages/AddHotelForm';
+import BookingOrders from './pages/BookingOrder';
 import Home from './pages/Home'
-import { BrowserRouter, Route, Routes } from "react-router";  
+import { BrowserRouter, Route, Routes } from "react-router-dom";  
 
 function App() {
   return (
     <BrowserRouter>
-     
-       
-        <div className="content">
           <Navbar />
           <Routes>
-             <Route path='/dashboard' element={<Home/>} />
+             <Route path='/' element={<Home/>} />
+               <Route path='/dashboard' element={<Home/>} />
               <Route path='/add.hotel' element={<AddHotelForm/>} />
+               <Route path='/bookingOrder' element={<BookingOrders/>} />
           </Routes>
-          <Home />
-        </div>
-      
     </BrowserRouter>
   );
 }

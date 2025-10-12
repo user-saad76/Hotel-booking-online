@@ -43,34 +43,54 @@ try {
 }
 }
  
-export const confirmPayment = async(req,res,next)=>{
- try {
-      const {sessionId} = req.body;
-   console.log('sessionId',sessionId);
-const session = await stripe.checkout.sessions.retrieve(sessionId, {
+export const confirmPayment = async (req, res, next) => {
+  try {
+    const { sessionId } = req.body;
+    console.log('🟢 Received sessionId:', sessionId);
+
+    if (!sessionId) {
+      return res.status(400).json({ error: "Session ID is required." });
+    }
+
+    // ✅ Retrieve session from Stripe
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ['payment_intent', 'customer'],
     });
-console.log('session',session);
- console.log("💳 Session Retrieved:", session.id);
 
+    if (!session) {
+      return res.status(404).json({ error: "Stripe session not found." });
+    }
 
-      // Prepare object that matches schema
+    console.log('💳 Stripe Session Retrieved:', session.id);
+    console.log('🔍 Payment status:', session.payment_status);
+    console.log('💰 Total amount:', session.amount_total);
+
+    // ✅ Prepare object that matches schema
     const bookingData = {
-      //userId: req?.user?._id || "671e41bdbf3d6c001234abcd", // test fallback
-      //hotelId: "671e41c3bf3d6c001234dcba", // test fallback
+      // Optional: add these only if you have user/hotel references uncommented in your schema
+      // userId: req?.user?._id || "671e41bdbf3d6c001234abcd", // test fallback
+      // hotelId: "671e41c3bf3d6c001234dcba", // test fallback
+
       checkInDate: new Date(),
       checkOutDate: new Date(),
       totalNights: 1,
       totalGuests: 1,
+
       stripeSessionId: session.id,
       paymentStatus: session.payment_status || "pending",
       paymentIntentId: session.payment_intent?.id || null,
-      customer_email: session.customer_details?.email || null,
-      customer_name: session.customer_details?.name || null,
-      customer_phone: session.customer_details?.phone || null,
+
+      customer_email:
+        session.customer_details?.email ||
+        session.customer_email ||
+        "unknown@example.com",
+      customer_name: session.customer_details?.name || "Unknown",
+      customer_phone: session.customer_details?.phone || "N/A",
+
       amount_subtotal: session.amount_subtotal || 0,
       amount_total: session.amount_total || 0,
       currency: session.currency || "usd",
+
       line_items: [
         {
           name: "Hotel Room",
@@ -79,25 +99,38 @@ console.log('session',session);
           amount_total: session.amount_total || 0,
           currency: session.currency || "usd",
           quantity: 1,
+          price_data: {
+            unit_amount: session.amount_total || 0,
+            currency: session.currency || "usd",
+          },
         },
       ],
     };
-      console.log("🟢 Creating booking in DB...");
-     const savedBooking = await BookingOrder.create(bookingData);
-  console.log("✅ Booking saved:", savedBooking._id);
-   // 👇 yahan return karo frontend ko simple JSON
-    res.json({
-      id: session.id,
-      amount_total: session.amount_total,
-      payment_status: session.payment_status,
-      customer_email: session.customer_details?.email || "N/A",
-    });
 
-    
- } catch (error) {
-    console.error(" Session retrieve error:", error.message);
- }
+    console.log("🧾 Booking data prepared for DB:", bookingData);
 
-   
-}
+    // ✅ Save booking to MongoDB
+    try {
+      const savedBooking = await BookingOrder.create(bookingData);
+      console.log("✅ Booking saved successfully:", savedBooking._id);
 
+      // ✅ Send clean response to frontend
+      return res.json({
+        success: true,
+        message: "Booking stored successfully",
+        bookingId: savedBooking._id,
+        payment_status: session.payment_status,
+        amount_total: session.amount_total,
+        customer_email: bookingData.customer_email,
+      });
+    } catch (dbError) {
+      console.error("❌ Booking save failed:", dbError.message);
+      return res
+        .status(500)
+        .json({ error: "Failed to save booking in database", details: dbError.message });
+    }
+  } catch (error) {
+    console.error("❌ Session retrieve error:", error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};

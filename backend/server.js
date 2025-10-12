@@ -8,7 +8,8 @@ import UserRoutes from './routes/user.routes.js'
 import ReviewRoutes from './routes/Review.routes.js'
 import cookieParser from "cookie-parser";
 import AIRoutes from "./routes/ai.routes.js";
-import paymentRoutes from './routes/payment.routes.js'
+import paymentRoutes from './routes/payment.routes.js';
+import BookingOrdersRoutes from'./routes/BookingOrders.routes.js';
 
 const server = express();
 const port =  process.env.PORT || 5000
@@ -34,6 +35,8 @@ server.use(UserRoutes)
 server.use(ReviewRoutes)
 server.use("/api",AIRoutes);
 server.use(paymentRoutes)
+server.use(BookingOrdersRoutes)
+
 
 
 console.log("✅ OpenAI API Key Loaded:", process.env.OPENAI_API_KEY ? "Yes" : "No");

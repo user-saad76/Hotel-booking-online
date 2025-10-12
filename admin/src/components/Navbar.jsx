@@ -5,17 +5,6 @@ function Navbar() {
     <>
       <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
         <div class="container-fluid">
-          {/* ✅ Hamburger for Sidebar (Offcanvas Trigger) */}
-          <button
-            class="btn btn-outline-light me-2 d-lg-none"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#sidebarOffcanvas"
-            aria-controls="sidebarOffcanvas"
-          >
-            <i class="bi bi-list fs-4"></i>
-          </button>
-
           <a class="navbar-brand" href="#">
             <i class="bi bi-building-check"></i> HotelAdmin
           </a>
@@ -42,9 +31,9 @@ function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <Link class="nav-link" to="/bookingOrder">
                   <i class="bi bi-calendar-check me-1"></i> Bookings
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -125,22 +114,15 @@ function Navbar() {
                 >
                   <li>
                     <a class="dropdown-item" href="#">
-                      <i class="bi bi-person-circle me-2 text-primary"></i>Profile
+                      <i class="bi bi-person-circle me-2 text-primary"></i>signin
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">
-                      <i class="bi bi-gear me-2 text-warning"></i>Settings
+                      <i class="bi bi-gear me-2 text-warning"></i>Logout
                     </a>
                   </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#">
-                      <i class="bi bi-box-arrow-right me-2"></i>Logout
-                    </a>
-                  </li>
+                 
                 </ul>
               </li>
             </ul>
@@ -148,28 +130,6 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* ✅ Bootstrap Offcanvas Sidebar */}
-      <div
-        class="offcanvas offcanvas-start bg-dark text-white"
-        tabindex="-1"
-        id="sidebarOffcanvas"
-        aria-labelledby="sidebarOffcanvasLabel"
-      >
-        <div class="offcanvas-header border-bottom">
-          <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
-            <i class="bi bi-person-circle me-2"></i> Admin Panel
-          </h5>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="offcanvas-body p-0">
-          {/* ✅ Sidebar */}
-        </div>
-      </div>
     </>
   );
 }
