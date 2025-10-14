@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 
+
 function Navbar() {
+   
   return (
     <>
       <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
@@ -101,11 +103,6 @@ function Navbar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <img
-                    src="https://via.placeholder.com/40"
-                    alt="Admin Avatar"
-                    class="admin-avatar me-2"
-                  />
                   <span class="fw-semibold">Admin</span>
                 </a>
                 <ul
@@ -113,15 +110,16 @@ function Navbar() {
                   aria-labelledby="adminDropdown"
                 >
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <Link class="dropdown-item" to="/sign-in">
                       <i class="bi bi-person-circle me-2 text-primary"></i>signin
-                    </a>
+                    </Link>
                   </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bi bi-gear me-2 text-warning"></i>Logout
-                    </a>
+                   <li>
+                    <Link class="dropdown-item" to="/sign-up">
+                      <i class="bi bi-person-circle me-2 text-primary"></i>signup
+                    </Link>
                   </li>
+                  
                  
                 </ul>
               </li>

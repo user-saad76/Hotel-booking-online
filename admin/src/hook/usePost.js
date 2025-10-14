@@ -15,6 +15,7 @@ export function usePost(url) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // ✅ ADD THIS LINE
         body: JSON.stringify(data),
       });
 

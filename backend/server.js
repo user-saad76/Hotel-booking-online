@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 import AIRoutes from "./routes/ai.routes.js";
 import paymentRoutes from './routes/payment.routes.js';
 import BookingOrdersRoutes from'./routes/BookingOrders.routes.js';
-
+import AdminUserRoutes from './routes/AdminUser.routes.js'
 const server = express();
 const port =  process.env.PORT || 5000
 connectDB().catch((e)=>console.log("Error in Correction",e))
@@ -18,7 +18,7 @@ connectDB().catch((e)=>console.log("Error in Correction",e))
 
 
 server.use((req, res, next) => {
-  console.log("🔥 Request:", req.method, req.url);
+  console.log("Request:", req.method, req.url);
   next();
 });
 
@@ -36,10 +36,14 @@ server.use(ReviewRoutes)
 server.use("/api",AIRoutes);
 server.use(paymentRoutes)
 server.use(BookingOrdersRoutes)
+server.use(AdminUserRoutes);
 
 
 
-console.log("✅ OpenAI API Key Loaded:", process.env.OPENAI_API_KEY ? "Yes" : "No");
+
+
+
+console.log(" OpenAI API Key Loaded:", process.env.OPENAI_API_KEY ? "Yes" : "No");
 
 
 
