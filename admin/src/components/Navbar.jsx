@@ -1,8 +1,49 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-
 function Navbar() {
-   
+  // ✅ Step 1: Hold admin data
+  const [admin, setAdmin] = useState(null);
+
+  // ✅ Step 2: Fetch logged-in admin info from backend
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const res = await fetch("http://localhost:7000/admin-user/me", {
+          method: "GET",
+          credentials: "include", // send cookie with request
+        });
+
+        if (!res.ok) {
+          console.log("Not authenticated");
+          return;
+        }
+
+        const data = await res.json();
+        console.log("Admin data:", data);
+        setAdmin(data);
+      } catch (error) {
+        console.error("Error fetching admin:", error);
+      }
+    };
+
+    fetchAdmin();
+  }, []);
+
+  // ✅ Step 3: Logout function
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:7000/admin-user/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      setAdmin(null);
+      window.location.reload(); // refresh after logout
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
     <>
       <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
@@ -28,7 +69,7 @@ function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" to ="/add.hotel">
+                <Link class="nav-link" to="/add.hotel">
                   <i class="bi bi-door-open me-1"></i> Hotels
                 </Link>
               </li>
@@ -93,6 +134,7 @@ function Navbar() {
               </li>
             </ul>
 
+            {/* ✅ Admin/User Dropdown Section */}
             <ul class="navbar-nav ms-auto">
               <li class="nav-item dropdown">
                 <a
@@ -103,31 +145,48 @@ function Navbar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <span class="fw-semibold">Admin</span>
+                  <span class="fw-semibold">
+                    {admin ? admin.name : "Admin"}
+                  </span>
                 </a>
                 <ul
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="adminDropdown"
                 >
-                  <li>
-                    <Link class="dropdown-item" to="/sign-in">
-                      <i class="bi bi-person-circle me-2 text-primary"></i>signin
-                    </Link>
-                  </li>
-                   <li>
-                    <Link class="dropdown-item" to="/sign-up">
-                      <i class="bi bi-person-circle me-2 text-primary"></i>signup
-                    </Link>
-                  </li>
-                  
-                 
+                  {/* If not logged in → show Signin/Signup */}
+                  {!admin ? (
+                    <>
+                      <li>
+                        <Link class="dropdown-item" to="/sign-in">
+                          <i class="bi bi-person-circle me-2 text-primary"></i>
+                          Sign In
+                        </Link>
+                      </li>
+                      <li>
+                        <Link class="dropdown-item" to="/sign-up">
+                          <i class="bi bi-person-plus me-2 text-success"></i>
+                          Sign Up
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <button
+                          class="dropdown-item text-danger"
+                          onClick={handleLogout}
+                        >
+                          <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </button>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-
     </>
   );
 }

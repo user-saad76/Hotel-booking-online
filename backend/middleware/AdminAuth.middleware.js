@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export const isAuthenticated = async (req, res, next) => {
-  const token = req.cookies['jwt-token'];
+  const token = req.cookies?.["jwt-token"]; // ✅ same name as you used in signin
   console.log('Admin-token', token);
 
   if (!token) {
@@ -11,7 +11,8 @@ export const isAuthenticated = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("+++++", decoded);
-    req.Adminuser = decoded;
+     req.user = decoded;
+
     next();
   } catch (err) {
     console.error('JWT verification failed:', err.message);

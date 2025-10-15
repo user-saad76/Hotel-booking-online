@@ -28,7 +28,7 @@ server.use(cors({
   credentials: true            // allow cookies
 }))
 server.use(express.json());
-server.use(bodyParser.json())
+//server.use(bodyParser.json())
 server.use(cookieParser())
 server.use(HotelRoutes)
 server.use(UserRoutes)

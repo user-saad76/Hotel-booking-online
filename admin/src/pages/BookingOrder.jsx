@@ -3,11 +3,13 @@ import { useFetch } from "../hook/useFetch";
 
 function BookingOrders() {
   const { data, error, loading } = useFetch("http://localhost:7000/bookingOrder");
-
+ 
   if (loading) return <div className="text-center py-5">Loading...</div>;
   if (error) return <div className="text-danger text-center py-5">Error loading data</div>;
 
   const orders = data?.bookingOrders || [];
+  console.log("BookingOrders",data);
+  
 
   return (
     <div className="container py-4">

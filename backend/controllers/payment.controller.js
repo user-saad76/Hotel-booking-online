@@ -122,6 +122,8 @@ export const confirmPayment = async (req, res, next) => {
         payment_status: session.payment_status,
         amount_total: session.amount_total,
         customer_email: bookingData.customer_email,
+         checkInDate: bookingData.checkIn,
+         checkOutDate: bookingData.checkOut
       });
     } catch (dbError) {
       console.error("❌ Booking save failed:", dbError.message);

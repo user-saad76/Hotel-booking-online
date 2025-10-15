@@ -19,7 +19,7 @@ function SignInForm() {
   const { adminUser, error: userError, loading: userLoading } = useAuth();
 
   if (userLoading) return <p>Loading...</p>;
-  if (adminUser && adminUser?.name) return <Navigate to="/" />;
+if (adminUser && adminUser?.name) return <Navigate to="/" />;
 
   const { postData, data, error, loading } = usePost("http://localhost:7000/admin-user/signin");
 

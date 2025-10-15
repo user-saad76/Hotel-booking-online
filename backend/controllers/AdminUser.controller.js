@@ -48,7 +48,7 @@ export const signinAdminUser = async (req, res) => {
       {
         id: admin._id,
         email: admin.email,
-        name: admin.fullname,
+        name: admin.name,
         role: admin.role,
       },
       process.env.JWT_SECRET,
