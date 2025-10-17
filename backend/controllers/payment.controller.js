@@ -27,7 +27,7 @@ try {
      console.log('-----req?.user?.id',req?.user?.id);
      
      const session = await stripe.checkout.sessions.create({
-     success_url: 'http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}',
+     success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}&checkIn=${encodeURIComponent(bookingData.checkIn)}&checkOut=${encodeURIComponent(bookingData.checkOut)}`,
      cancel_url:'http://localhost:5173/cancel',
      ui_mode: "hosted",
     line_items: [lineItem],
@@ -45,8 +45,11 @@ try {
  
 export const confirmPayment = async (req, res, next) => {
   try {
-    const { sessionId } = req.body;
+    const { sessionId,checkIn, checkOut } = req.body;
     console.log('🟢 Received sessionId:', sessionId);
+    console.log('🟢 Received checkIn:',checkIn);
+     console.log('🟢 Received checkOut:',checkOut);
+    
 
     if (!sessionId) {
       return res.status(400).json({ error: "Session ID is required." });
@@ -71,8 +74,8 @@ export const confirmPayment = async (req, res, next) => {
       // userId: req?.user?._id || "671e41bdbf3d6c001234abcd", // test fallback
       // hotelId: "671e41c3bf3d6c001234dcba", // test fallback
 
-      checkInDate: new Date(),
-      checkOutDate: new Date(),
+    checkInDate: new Date(checkIn),
+    checkOutDate: new Date(checkOut),
       totalNights: 1,
       totalGuests: 1,
 

@@ -6,6 +6,8 @@ function PaymentSuccess() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [sessionData, setSessionData] = useState(null);
+   const checkIn = searchParams.get("checkIn");
+    const checkOut = searchParams.get("checkOut");
 
   useEffect(() => {
     if (sessionId) {
@@ -23,7 +25,7 @@ function PaymentSuccess() {
           method: "POST",
           headers: { "Content-Type": "application/json" , 
             "Authorization": `Bearer ${token}`, },
-          body: JSON.stringify({ sessionId}),
+          body: JSON.stringify({ sessionId,checkIn, checkOut}),
         }
       );
 
@@ -36,6 +38,9 @@ function PaymentSuccess() {
       console.error("❌ Error fetching session details:", error);
     }
   };
+  console.log("URL checkIn:", checkIn);
+  console.log("URL checkOut:", checkOut);
+  
 
   return (
     <div className="container mt-5 text-center">

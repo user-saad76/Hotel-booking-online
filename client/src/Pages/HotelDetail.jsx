@@ -43,12 +43,15 @@ function HotelDetail({ hotels }) {
 
   // ✅ Stripe Integration — Only Added Here
   const onSubmit = async (data) => {
-  
+      const checkInISO = new Date(data.checkIn).toISOString();
+      const checkOutISO = new Date(data.checkOut).toISOString();
 
     const bookingData = {
       ...data,
       hotelName: item?.name,
       totalPrice: item?.pricePerNight * guests,
+         checkIn: checkInISO,
+        checkOut: checkOutISO,
     };
 
     console.log("✅ Stripe Payment Data Submitted:", bookingData);
