@@ -1,25 +1,47 @@
 
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+
 
 function Booking({hotels}) {
+  const [search,setSearch] = useState("")
+  const [filteredHotels, setFilteredHotels] = useState(hotels || []);
+  useEffect(()=>{
+     if(!search){
+       setFilteredHotels(hotels)
+     }
+     else{
+      const lowerSearch = search.toLowerCase();
+      const filtered = hotels?.filter((hotel)=>
+         hotel.name.toLowerCase().includes(lowerSearch) ||
+          hotel.location.toLowerCase().includes(lowerSearch)
+
+      );
+     setFilteredHotels(filtered)
+     }
+  },[search,hotels])
+ const handleSubmit = (e)=>{
+    e.preventDefault();
+ }
   return (
     <>
       <div className="container my-4">
         {/* Search Bar */}
-        <div className="input-group mb-4">
+        <form className="input-group mb-4" onSubmit={handleSubmit}>
           <input
             type="text"
             className="form-control"
             placeholder="Search by hotel or location"
+            onChange={(e) => setSearch(e.target.value)}
+
           />
           <button className="btn btn-primary">Search</button>
-        </div>
+        </form>
 
         {/* Hotel Cards */}
         <div className="row">
-          {hotels?.map((hotel, index) => (
+          {filteredHotels?.map((hotel, index) => (
             <div className="col-md-4 mb-3" key={index}>
               <div className="card shadow-sm h-100">
                 <img
