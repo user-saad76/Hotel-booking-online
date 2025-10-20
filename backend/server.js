@@ -10,12 +10,34 @@ import cookieParser from "cookie-parser";
 import AIRoutes from "./routes/ai.routes.js";
 import paymentRoutes from './routes/payment.routes.js';
 import BookingOrdersRoutes from'./routes/BookingOrders.routes.js';
-import AdminUserRoutes from './routes/AdminUser.routes.js'
+import AdminUserRoutes from './routes/AdminUser.routes.js';
+import http from 'http'
+import { Server } from "socket.io";
+
 const server = express();
 const port =  process.env.PORT || 5000
 connectDB().catch((e)=>console.log("Error in Correction",e))
 
+const serverhttp = http.createServer(server);
+const io = new Server(serverhttp,{
+  cors:{
+    origin:["http://localhost:5173","http://localhost:5174"],
+    methods:["GET","POST"],
+    credentials:true //frontend origins
+  }
+});
 
+io.on("connection",(socket)=>{
+   
+  console.log('Hello',socket.id);
+  socket.emit('abc',{message:'Hello I am updating string'})
+
+  socket.on('chat',(data)=>{
+    console.log(socket.id,"sent a message",data.chat);
+    
+  })
+  
+})
 
 server.use((req, res, next) => {
   console.log("Request:", req.method, req.url);
@@ -47,6 +69,6 @@ console.log(" OpenAI API Key Loaded:", process.env.OPENAI_API_KEY ? "Yes" : "No"
 
 
 
-server.listen(port, () => {
+ serverhttp.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
