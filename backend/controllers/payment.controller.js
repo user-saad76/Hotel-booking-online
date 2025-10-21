@@ -115,7 +115,13 @@ export const confirmPayment = async (req, res, next) => {
     // ✅ Save booking to MongoDB
     try {
       const savedBooking = await BookingOrder.create(bookingData);
-      console.log("✅ Booking saved successfully:", savedBooking._id);
+      console.log("✅ Booking saved successfully:", savedBooking._id); 
+
+      const io = req.io; // ✅ ab req.io me socket instance mil gaya
+       console.log("🔌 Socket instance found:", !!io);
+      io.emit("new-order", savedBooking); // consistent event name
+     
+      
 
       // ✅ Send clean response to frontend
       return res.json({

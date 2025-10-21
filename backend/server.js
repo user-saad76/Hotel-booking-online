@@ -30,19 +30,15 @@ const io = new Server(serverhttp,{
 io.on("connection",(socket)=>{
    
   console.log('Hello',socket.id);
-  socket.emit('abc',{message:'Hello I am updating string'})
+  // socket.emit('abc',{message:'Hello I am updating string'})
 
-  socket.on('chat',(data)=>{
-    console.log(socket.id,"sent a message",data.chat);
+  // socket.on('chat',(data)=>{
+  //   console.log(socket.id,"sent a message",data.chat);
     
-  })
+  // })
   
 })
 
-server.use((req, res, next) => {
-  console.log("Request:", req.method, req.url);
-  next();
-});
 
 
 server.use(cors({
@@ -52,6 +48,13 @@ server.use(cors({
 server.use(express.json());
 //server.use(bodyParser.json())
 server.use(cookieParser())
+
+server.set("socket", io);
+server.use((req, res, next) => {
+  req.io = server.get("socket");
+  next();
+});
+
 server.use(HotelRoutes)
 server.use(UserRoutes)
 server.use(ReviewRoutes)
@@ -59,14 +62,6 @@ server.use("/api",AIRoutes);
 server.use(paymentRoutes)
 server.use(BookingOrdersRoutes)
 server.use(AdminUserRoutes);
-
-
-
-
-
-
-console.log(" OpenAI API Key Loaded:", process.env.OPENAI_API_KEY ? "Yes" : "No");
-
 
 
  serverhttp.listen(port, () => {

@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import socket from "../utils/socket";
 
 function Navbar() {
+   const [messages,setMessages]= useState([])
+
+   useEffect(()=>{
+    socket.on("new-order",(data)=>{
+      console.log("socket-data",data);
+      
+   setMessages((messages) => [...messages, data]);
+    })
+   },[])
+
+
   // ✅ Step 1: Hold admin data
   const [admin, setAdmin] = useState(null);
 
@@ -95,35 +107,34 @@ function Navbar() {
                   aria-expanded="false"
                 >
                   <i className="bi bi-envelope-fill me-1"></i> Messages
-                  <span className="badge bg-danger rounded-pill">3</span>
+                  <span className="badge bg-danger rounded-pill">{messages.length}</span>
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="messageDropdown"
                 >
-                  <li>
+                  {
+                    messages?.length == 0? <p>No messages</p>:
+                  messages && messages?.map((message)=>{
+                    return(
+                      <>
+                        <li>
                     <a className="dropdown-item" href="#">
-                      <strong>Ali Raza:</strong> Need room info
+                      <strong>{message?.BookingOrders?.name}</strong> Hotel payment is delivered
                     </a>
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <strong>Sana Khan:</strong> Booking confirmed
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <strong>John Doe:</strong> Check-in tomorrow
-                    </a>
-                  </li>
-                  <li>
+                     <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
+                  </>
+                    )
+                  })
+                }
+                  {/* <li>
                     <a className="dropdown-item text-primary" href="#">
                       View all messages
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
 
