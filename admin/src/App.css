@@ -215,3 +215,73 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }
 }
+/* General Layout */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+  position: absolute;
+  z-index: 999;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar .nav-link {
+  color: #adb5bd;
+  margin-bottom: 8px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background-color: #495057;
+  color: #fff;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  background-color: #f8f9fa;
+}
+
+/* Stat Cards */
+.stat-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+}

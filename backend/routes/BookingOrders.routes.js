@@ -6,8 +6,8 @@ const router = express.Router()
 
 router.route('/bookingOrder').get(getAllBookingOrders)
 router.route('/bookingOrder/:id').get(getBookingOrderById)
-router.route('/bookingOrder/update/:id').put(UpdateBookingOrderById)
-router.route('/bookingOrder/delete/:id').delete(deleteBookingOrderById)
+router.route('/bookingOrder/update/:id').put(isAuthenticated,UpdateBookingOrderById)
+router.route('/bookingOrder/delete/:id').delete(isAuthenticated,deleteBookingOrderById)
 
 
 export default router

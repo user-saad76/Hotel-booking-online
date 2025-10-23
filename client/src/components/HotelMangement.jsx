@@ -1,3 +1,8 @@
+
+import manager from '../assets/manager-2.jpg'
+import frontOffice from '../assets/front office.jpg'
+import Chef from '../assets/chef-1.jpg'
+import Housekeeping from '../assets/housekeeper.jpg'
 function HotelMangement () {
     return(
       <>
@@ -6,7 +11,7 @@ function HotelMangement () {
   <div className="row g-4">
     <div className="col-md-3">
       <div className="card h-100 shadow border-0">
-        <img src="/assets/manager1.jpg" className="card-img-top" alt="John Smith"/>
+        <img src={manager} className="card-img-top" alt="John Smith"/>
         <div className="card-body text-center">
           <h5 className="card-title fw-bold">John Smith</h5>
           <p className="text-primary mb-1">General Manager</p>
@@ -23,7 +28,7 @@ function HotelMangement () {
   
     <div className="col-md-3">
       <div className="card h-100 shadow border-0">
-        <img src="/assets/manager2.jpg" className="card-img-top" alt="Emily Johnson"/>
+        <img src={frontOffice} className="card-img-top" alt="Emily Johnson"/>
         <div className="card-body text-center">
           <h5 className="card-title fw-bold">Emily Johnson</h5>
           <p className="text-primary mb-1">Front Office Manager</p>
@@ -40,7 +45,7 @@ function HotelMangement () {
     
     <div className="col-md-3">
       <div className="card h-100 shadow border-0">
-        <img src="/assets/manager3.jpg" className="card-img-top" alt="Michael Lee"/>
+        <img src={Chef} className="card-img-top" alt="Michael Lee"/>
         <div className="card-body text-center">
           <h5 className="card-title fw-bold">Michael Lee</h5>
           <p className="text-primary mb-1">Executive Chef</p>
@@ -57,7 +62,7 @@ function HotelMangement () {
    
     <div className="col-md-3">
       <div className="card h-100 shadow border-0">
-        <img src="/assets/manager4.jpg" className="card-img-top" alt="Sophia Brown"/>
+        <img src={Housekeeping} className="card-img-top" alt="Sophia Brown"/>
         <div className="card-body text-center">
           <h5 className="card-title fw-bold">Sophia Brown</h5>
           <p className="text-primary mb-1">Housekeeping Manager</p>

@@ -9,6 +9,8 @@ import SignInForm from './pages/SignInForm';
 import SignUpForm from './pages/SignUpForm';
 import AuthProvider from './contexts/AuthProvider';
 
+
+
 function App() {
 
    
@@ -17,11 +19,11 @@ function App() {
   return (
     <AuthProvider>
     <BrowserRouter>
-          <Navbar />
+        <Navbar/>
           <Routes>
              <Route path='/' element={<Home/>} />
                <Route path='/dashboard' element={<Home/>} />
-              <Route path='/add.hotel' element={<AddHotelForm/>} />
+              <Route path='/add.hotel' element={ <AddHotelForm/>} />
                <Route path='/bookingOrder' element={<BookingOrders/>} />
                 <Route path='/sign-in' element={<SignInForm/>} />
                  <Route path='/sign-up' element={<SignUpForm/>} />

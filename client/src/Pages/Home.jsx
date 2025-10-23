@@ -5,8 +5,15 @@ import HotelQuality from "../components/HotelQuality"
 import HotelRequirements from "../components/HotelRequirements"
 import Footer from "../components/Footer"
 import AIRecommendations from "../components/AIRecommendations"
+import { useFetch } from "../hook/useFetch"
 
 function Home() {
+
+ const {data:hotels,error,loading} = useFetch('http://localhost:7000/hotels')
+
+
+
+
     return(
         <>
          <Banner/>
@@ -14,7 +21,7 @@ function Home() {
       <HotelRequirements/>
        <HotelMangement/>
        <HotelQuality/>
-      <HotelCarousel/>
+      <HotelCarousel hotels={hotels} />
 
       <Footer/>
     

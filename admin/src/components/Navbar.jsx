@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import socket from "../utils/socket";
+import moment from 'moment';
 
 function Navbar() {
    const [messages,setMessages]= useState([])
@@ -42,6 +43,9 @@ function Navbar() {
     fetchAdmin();
   }, []);
 
+  
+
+
   // ✅ Step 3: Logout function
   const handleLogout = async () => {
     try {
@@ -55,6 +59,11 @@ function Navbar() {
       console.error("Logout failed:", error);
     }
   };
+
+
+
+
+  
 
   return (
     <>
@@ -120,8 +129,11 @@ function Navbar() {
                       <>
                         <li>
                     <a className="dropdown-item" href="#">
-                      <strong>{message?.BookingOrders?.name}</strong> Hotel payment is delivered
+                      <strong>{message.customer_name}</strong>
+                      <p>Hotel payment is delivered</p> 
+                       <small>{moment.utc(message.createdAt).fromNow()}</small>
                     </a>
+                     
                   </li>
                      <li>
                     <hr className="dropdown-divider" />
