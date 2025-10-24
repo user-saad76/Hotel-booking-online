@@ -8,6 +8,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInForm from './pages/SignInForm';
 import SignUpForm from './pages/SignUpForm';
 import AuthProvider from './contexts/AuthProvider';
+import AdminProtected from './pages/AdminProtected';
+
 
 
 
@@ -17,14 +19,14 @@ function App() {
 
 
   return (
-    <AuthProvider>
+     <AuthProvider>
     <BrowserRouter>
-        <Navbar/>
+        <AdminProtected><Navbar/></AdminProtected>
           <Routes>
-             <Route path='/' element={<Home/>} />
-               <Route path='/dashboard' element={<Home/>} />
-              <Route path='/add.hotel' element={ <AddHotelForm/>} />
-               <Route path='/bookingOrder' element={<BookingOrders/>} />
+             <Route path='/' element={ <AdminProtected><Home/></AdminProtected>} />
+               <Route path='/dashboard' element={<AdminProtected><Home/></AdminProtected>} />
+              <Route path='/add.hotel' element={<AdminProtected><AddHotelForm/></AdminProtected> } />
+               <Route path='/bookingOrder' element={<AdminProtected><BookingOrders/></AdminProtected>} />
                 <Route path='/sign-in' element={<SignInForm/>} />
                  <Route path='/sign-up' element={<SignUpForm/>} />
           </Routes>

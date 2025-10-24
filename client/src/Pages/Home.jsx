@@ -4,7 +4,6 @@ import HotelMangement from "../components/HotelMangement"
 import HotelQuality from "../components/HotelQuality"
 import HotelRequirements from "../components/HotelRequirements"
 import Footer from "../components/Footer"
-import AIRecommendations from "../components/AIRecommendations"
 import { useFetch } from "../hook/useFetch"
 
 function Home() {
@@ -17,7 +16,6 @@ function Home() {
     return(
         <>
          <Banner/>
-       <AIRecommendations/>
       <HotelRequirements/>
        <HotelMangement/>
        <HotelQuality/>

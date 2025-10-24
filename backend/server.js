@@ -7,7 +7,6 @@ import cors from 'cors'
 import UserRoutes from './routes/user.routes.js'
 import ReviewRoutes from './routes/Review.routes.js'
 import cookieParser from "cookie-parser";
-import AIRoutes from "./routes/ai.routes.js";
 import paymentRoutes from './routes/payment.routes.js';
 import BookingOrdersRoutes from'./routes/BookingOrders.routes.js';
 import AdminUserRoutes from './routes/AdminUser.routes.js';
@@ -58,7 +57,6 @@ server.use((req, res, next) => {
 server.use(HotelRoutes)
 server.use(UserRoutes)
 server.use(ReviewRoutes)
-server.use("/api",AIRoutes);
 server.use(paymentRoutes)
 server.use(BookingOrdersRoutes)
 server.use(AdminUserRoutes);

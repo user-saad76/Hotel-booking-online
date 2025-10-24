@@ -4,11 +4,11 @@ body {
       background-color: #f8f9fa;
     }
 
-    .navbar {
+    /* .navbar {
       background: linear-gradient(90deg, #0d6efd, #004085);
       padding: 0.75rem 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+    } */
 
     .navbar-brand {
       font-weight: 700;
@@ -75,7 +75,7 @@ body {
     }
 
     /* Navbar Styling */
-    .navbar {
+    /* .navbar {
       background: linear-gradient(90deg, #0d6efd, #004085);
       padding: 0.75rem 1rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -87,7 +87,7 @@ body {
       color: #fff !important;
       text-transform: uppercase;
       letter-spacing: 1px;
-    }
+    } */
      /* --- RESPONSIVE STYLES --- */
 @media (max-width: 1276px) {
   .navbar {
@@ -216,11 +216,11 @@ body {
   }
 }
 /* General Layout */
-.dashboard-container {
+ .dashboard-container {
   display: flex;
   min-height: 100vh;
   overflow-x: hidden;
-}
+} 
 
 /* Sidebar */
 .sidebar {

@@ -5,7 +5,6 @@ import { BrowserRouter ,Routes,Route} from "react-router";
 import Booking from './Pages/Booking';
 import Navbar from './components/Navbar'
 import Rooms from './Pages/Rooms';
-import Contect from './Pages/Contect';
 //import { hotels } from './hotel-data';
 import { useEffect, useState } from 'react';
 import HotelDetail from './Pages/HotelDetail';
@@ -18,6 +17,7 @@ import Protected from './Pages/Protected';
 import Review from './components/Review';
 import PaymentSuccess from './Pages/PaymentSuccess';
 import PaymentCancel from './Pages/PaymentCancel';
+import Complain from './Pages/Complain';
 
 
 
@@ -48,7 +48,7 @@ function App() {
        <Route path='/' element = {<Home/>} />
        <Route path='/booking' element = {<Booking hotels={hotels} />} />
          <Route path='/rooms' element = {<Rooms/>} />
-          <Route path='/contect' element = {<Contect/>} />
+          <Route path='/complain' element = {<Complain/>} />
            <Route path='/hotels/:slug' element = {<Protected><HotelDetail hotels={hotels}/></Protected>} />
              <Route path='/sign-in' element = {<SignInForm/>} />
              <Route path='/sign-up' element = {< SignupForm/>} />
