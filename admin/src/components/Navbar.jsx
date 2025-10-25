@@ -151,9 +151,9 @@ function Navbar() {
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/reports">
                   <i className="bi bi-bar-chart-line me-1"></i> Reports
-                </a>
+                </Link>
               </li>
             </ul>
 

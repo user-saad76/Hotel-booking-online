@@ -1,5 +1,5 @@
 import express from "express";
-import { isAuthenticated } from "../middleware/auth.middleware.js";
+import { isAuthenticated, isAuthorized } from "../middleware/auth.middleware.js";
 import { signinAdminUser, signupAdminUser ,Admin,logout} from "../controllers/AdminUser.controller.js";
 
 

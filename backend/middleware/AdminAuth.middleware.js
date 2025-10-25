@@ -20,6 +20,23 @@ export const isAuthenticated = async (req, res, next) => {
   }
 };
 
-export const isAuthorized = (req, res, next) => {
-  return null;
+export const isAuthorized = (roles = []) => {
+  return (req, res, next) => {
+    // role ek ya multiple ho sakte hain
+    if (typeof roles === "string") roles = [roles];
+
+    // check user exist karta hai (isAuthenticated se)
+    if (!req.user) {
+      return res.status(401).json({ message: "User not authenticated." });
+    }
+
+    // check user ka role allowed roles mai hai ya nahi
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({ message: "You are not authorized to access this resource." });
+    }
+
+    // sab theek → next step
+    next();
+  };
 };
+

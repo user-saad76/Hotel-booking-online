@@ -3,15 +3,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// Zod schema for the complaint form
+// ✅ Zod schema for the complaint form
 const complaintSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Enter a valid email address." }),
-  message: z.string().min(10, { message: "Please provide more details (at least 10 characters)." }),
+  message: z
+    .string()
+    .min(10, { message: "Please provide more details (at least 10 characters)." }),
 });
-
-// Infer TypeScript type (optional) — remove if using plain JS
-// type ComplaintFormValues = z.infer<typeof complaintSchema>;
 
 export default function Complain({ onSubmit }) {
   const {
@@ -24,17 +23,34 @@ export default function Complain({ onSubmit }) {
     mode: "onTouched",
   });
 
+  // ✅ Handle form submit (with backend API integration)
   const handleFormSubmit = async (data) => {
     try {
-      // If parent provided an onSubmit handler use it, otherwise log
+      console.log("Complaint submitted:", data);
+
+      // 🔥 Send data to backend (adjust your API URL if needed)
+      const res = await fetch("http://localhost:7000/report/complain", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        alert("✅ Complaint submitted successfully!");
+        reset(); // clear the form
+      } else {
+        alert("❌ Failed to submit complaint: " + result.message);
+      }
+
+      // If parent provided custom handler, call it
       if (onSubmit) await onSubmit(data);
-      else console.log("Complaint submitted:", data);
-      // Success feedback: reset form and optionally show a toast/snackbar
-      reset();
-      // You can replace the console.log with a real API call (fetch/axios)
     } catch (err) {
-      console.error(err);
-      // handle server errors here
+      console.error("❌ Error submitting complaint:", err);
+      alert("Server error. Please try again later.");
     }
   };
 
@@ -93,8 +109,13 @@ export default function Complain({ onSubmit }) {
           )}
         </div>
 
+        {/* Buttons */}
         <div className="d-flex gap-2">
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Submitting..." : "Submit Complaint"}
           </button>
           <button

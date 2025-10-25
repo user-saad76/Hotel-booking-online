@@ -3,7 +3,7 @@ import { useFetch } from '../hook/useFetch';
 
 export const AuthContext = createContext();
 
-function AuthProvider({ children }) {
+function AdminAuthProvider({ children }) {
   const { data, error, loading } = useFetch('http://localhost:7000/admin-user/me');
   const [adminUser, setAdminUser] = useState(null);
 
@@ -29,6 +29,6 @@ function AuthProvider({ children }) {
   );
 }
 
-export default AuthProvider;
+export default AdminAuthProvider;
 
 export const useAuth = () => useContext(AuthContext);

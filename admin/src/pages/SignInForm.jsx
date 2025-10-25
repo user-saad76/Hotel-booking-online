@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, Navigate } from "react-router";
 import { usePost } from "../hook/usePost";
-import { useAuth } from "../contexts/AuthProvider";
+import { useAuth } from "../contexts/AdminAuthProvider";
 
 // ✅ Define Zod schema
 const SignInSchema = z.object({

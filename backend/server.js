@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import paymentRoutes from './routes/payment.routes.js';
 import BookingOrdersRoutes from'./routes/BookingOrders.routes.js';
 import AdminUserRoutes from './routes/AdminUser.routes.js';
+import ComplainMessagesRoutes from './routes/ComplainMessages.routes.js';
 import http from 'http'
 import { Server } from "socket.io";
 
@@ -60,6 +61,7 @@ server.use(ReviewRoutes)
 server.use(paymentRoutes)
 server.use(BookingOrdersRoutes)
 server.use(AdminUserRoutes);
+server.use(ComplainMessagesRoutes);
 
 
  serverhttp.listen(port, () => {
