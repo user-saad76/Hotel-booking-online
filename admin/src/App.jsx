@@ -24,8 +24,8 @@ function App() {
           <Routes>
              <Route path='/' element={ <Home/>} />
                <Route path='/dashboard' element={<Home/>} />
-              <Route path='/add.hotel' element={<AdminProtected><AddHotelForm/></AdminProtected> } />
-               <Route path='/bookingOrder' element={<AdminProtected><BookingOrders/></AdminProtected>} />
+              <Route path='/add.hotel' element={<AddHotelForm/>} />
+               <Route path='/bookingOrder' element={<BookingOrders/>} />
                 <Route path='/sign-in' element={<SignInForm/>} />
                  <Route path='/sign-up' element={<SignUpForm/>} />
                  <Route path='/reports' element={<ComplainMessage/>} />

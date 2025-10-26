@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast, ToastContainer } from "react-toastify";
+
 
 // ✅ Zod schema for the complaint form
 const complaintSchema = z.object({
@@ -40,17 +42,17 @@ export default function Complain({ onSubmit }) {
       const result = await res.json();
 
       if (result.success) {
-        alert("✅ Complaint submitted successfully!");
+        toast.success("✅ Complaint submitted successfully!");
         reset(); // clear the form
       } else {
-        alert("❌ Failed to submit complaint: " + result.message);
+        toast.error("❌ Failed to submit complaint: " + result.message);
       }
 
       // If parent provided custom handler, call it
       if (onSubmit) await onSubmit(data);
     } catch (err) {
       console.error("❌ Error submitting complaint:", err);
-      alert("Server error. Please try again later.");
+      toast.error("⚠️ Server error. Please try again later.");
     }
   };
 
@@ -121,7 +123,10 @@ export default function Complain({ onSubmit }) {
           <button
             type="button"
             className="btn btn-outline-secondary"
-            onClick={() => reset()}
+            onClick={() => {
+              reset();
+              toast.info("Form reset!");
+            }}
             disabled={isSubmitting}
           >
             Reset
@@ -131,6 +136,9 @@ export default function Complain({ onSubmit }) {
         {/* Optional area for global messages */}
         <div className="mt-3" aria-live="polite"></div>
       </form>
+
+      {/* 🔔 Toast container */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

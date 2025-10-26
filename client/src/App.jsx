@@ -48,7 +48,7 @@ function App() {
        <Route path='/' element = {<Home/>} />
        <Route path='/booking' element = {<Booking hotels={hotels} />} />
          <Route path='/rooms' element = {<Rooms/>} />
-          <Route path='/complain' element = {<Complain/>} />
+          <Route path='/complain' element = {<Protected><Complain/></Protected>} />
            <Route path='/hotels/:slug' element = {<Protected><HotelDetail hotels={hotels}/></Protected>} />
              <Route path='/sign-in' element = {<SignInForm/>} />
              <Route path='/sign-up' element = {< SignupForm/>} />

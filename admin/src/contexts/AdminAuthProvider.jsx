@@ -23,7 +23,7 @@ function AdminAuthProvider({ children }) {
 
   // ✅ fixed naming consistency
   return (
-    <AuthContext.Provider value={{ adminUser, error, loading, logout }}>
+    <AuthContext.Provider value={{ adminUser:data, error, loading, logout }}>
       {children}
     </AuthContext.Provider>
   );
