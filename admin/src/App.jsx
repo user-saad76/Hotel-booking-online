@@ -20,9 +20,9 @@ function App() {
   return (
      <AdminAuthProvider>
     <BrowserRouter>
-        <Navbar/>
+        <AdminProtected><Navbar/></AdminProtected>
           <Routes>
-             <Route path='/' element={ <Home/>} />
+             <Route path='/' element={<Home/>} />
                <Route path='/dashboard' element={<Home/>} />
               <Route path='/add.hotel' element={<AddHotelForm/>} />
                <Route path='/bookingOrder' element={<BookingOrders/>} />

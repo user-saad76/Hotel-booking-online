@@ -14,13 +14,8 @@ const SignInSchema = z.object({
 });
 
 function SignInForm() {
-
-  // ✅ fixed destructure (match AuthProvider)
+  // ✅ Hooks must all be declared before any return or condition
   const { adminUser, error: userError, loading: userLoading } = useAuth();
-
-  if (userLoading) return <p>Loading...</p>;
-if (adminUser && adminUser?.name) return <Navigate to="/" />;
-
   const { postData, data, error, loading } = usePost("http://localhost:7000/admin-user/signin");
 
   const {
@@ -31,6 +26,10 @@ if (adminUser && adminUser?.name) return <Navigate to="/" />;
     resolver: zodResolver(SignInSchema),
     defaultValues: { email: "", password: "", remember: false },
   });
+
+  // ✅ Safe conditional rendering after hooks
+  if (userLoading) return <p>Loading...</p>;
+  if (adminUser && adminUser?.name) return <Navigate to="/" />;
 
   const onSubmit = async (data) => {
     console.log("Form Data:", data);
@@ -120,5 +119,4 @@ if (adminUser && adminUser?.name) return <Navigate to="/" />;
     </>
   );
 }
-
 export default SignInForm;
