@@ -31,4 +31,13 @@ export const CreateComplainMessages = async(req,res,next)=>{
      const complain = await Complaint.find(qData);
      res.json(complain);
 } 
+export const ComplainMessagesDelete = async(req,res,next)=>{
+   try {
+    const { id } = req.params;
+    await Complaint.findByIdAndDelete(id);
+    res.json({ success: true, message: "Complaint deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to delete complaint" });
+  }
+}
  

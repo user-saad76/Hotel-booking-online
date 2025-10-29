@@ -14,9 +14,6 @@ import AdminProtected from './pages/AdminProtected';
 
 function App() {
 
-   
-
-
   return (
      <AdminAuthProvider>
     <BrowserRouter>

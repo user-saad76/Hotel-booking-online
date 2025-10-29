@@ -1,25 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetch } from "../hook/useFetch";
+import { toast } from "react-toastify";
 
 function ComplainMessage() {
-  // ✅ Fetch data from backend
   const { data, error, loading } = useFetch("http://localhost:7000/report/getcomplain");
 
   const [search, setSearch] = useState("");
+  const [complaints, setComplaints] = useState([]); // ✅ correct name
 
-  if (loading)
-    return <div className="text-center py-5">⏳ Loading complaints...</div>;
+  // ✅ Load fetched data into local state
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      setComplaints(data);
+    }
+  }, [data]);
+
+  // ✅ Delete function
+  const DeleteMessage = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:7000/report/complainDelete/${id}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Complaint deleted successfully!");
+        // ✅ Remove from UI immediately
+        setComplaints((prev) => prev.filter((item) => item._id !== id));
+      } else {
+        toast.error(result.message || "Failed to delete complaint.");
+      }
+    } catch (error) {
+      toast.error("Error deleting complaint.");
+    }
+  };
+
+  if (loading) return <div className="text-center py-5">⏳ Loading complaints...</div>;
   if (error)
-    return (
-      <div className="text-danger text-center py-5">
-        ❌ Error loading data
-      </div>
-    );
+    return <div className="text-danger text-center py-5">❌ Error loading data</div>;
 
-  // ✅ Ensure we have an array
-  const complaints = Array.isArray(data) ? data : [];
-
-  // 🔍 Filter complaints by name, email, or message
+  // 🔍 Filter from local state (not from `data`)
   const filteredComplaints = complaints.filter((item) => {
     const query = search.toLowerCase();
     return (
@@ -28,8 +48,6 @@ function ComplainMessage() {
       item.message?.toLowerCase().includes(query)
     );
   });
-
-  console.log("📩 ComplainMessage Data:", complaints);
 
   return (
     <div className="container my-5">
@@ -44,11 +62,7 @@ function ComplainMessage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={() => setSearch("")}
-        >
+        <button className="btn btn-primary" type="button" onClick={() => setSearch("")}>
           Clear
         </button>
       </div>
@@ -56,8 +70,8 @@ function ComplainMessage() {
       {/* 📨 Complaint Boxes */}
       <div className="row g-4">
         {filteredComplaints.length > 0 ? (
-          filteredComplaints.map((item, index) => (
-            <div key={item._id || index} className="col-md-6 col-lg-4">
+          filteredComplaints.map((item) => (
+            <div key={item._id} className="col-md-6 col-lg-4">
               <div className="card border-0 shadow-sm h-100">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center mb-2">
@@ -80,11 +94,15 @@ function ComplainMessage() {
                   <p className="card-text text-secondary">{item.message}</p>
                 </div>
                 <div className="card-footer bg-transparent border-0 text-end text-muted small">
-                  📅{" "}
-                  {item.createdAt
-                    ? new Date(item.createdAt).toLocaleDateString()
-                    : "No Date"}
+                  📅 {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "No Date"}
                 </div>
+                <button
+                  className="btn btn-danger"
+                  type="button"
+                  onClick={() => DeleteMessage(item._id)}
+                >
+                  🗑 Delete
+                </button>
               </div>
             </div>
           ))

@@ -7,8 +7,8 @@ function AdminProtected({children}) {
      
      if(loading) return <h1>Loading....</h1>
      if(error) return <h1>Something want wrong</h1>
-    if(adminUser?.email) return <Navigate to ={'/sign-in'} replace/>
-     if (!adminUser?.email) return <Navigate to="/sign-in"/>;
+   // if(adminUser?.email) return <Navigate to ={'/sign-in'} replace/>
+     if (!adminUser?.name) return <Navigate to="/sign-in"/>;
      
     return <>
         {children}
