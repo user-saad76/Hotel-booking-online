@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, Navigate } from "react-router";
 import { usePost } from "../hook/usePost";
 import { useAuth } from "../contexts/AdminAuthProvider";
+import { toast } from "react-toastify"; 
 
 // ✅ Define Zod schema
 const SignInSchema = z.object({
@@ -32,9 +33,23 @@ function SignInForm() {
   if (adminUser && adminUser?.name) return <Navigate to="/" />;
 
   const onSubmit = async (data) => {
-    console.log("Form Data:", data);
-    await postData(data);
-    window.location.href = "/";
+     try {
+     console.log("Form Data:", data);
+     
+      const res = await postData(data);
+
+      if (res?.success) {
+        toast.success("✅ Signed in successfully!", { autoClose: 2000 });
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      } else {
+        toast.error(res?.message || "❌ Invalid credentials");
+      }
+    } catch (err) {
+      console.error("Sign-in error:", err);
+      toast.error("❌ Something went wrong. Please try again.");
+    }
   };
 
   return (

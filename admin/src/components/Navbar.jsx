@@ -209,6 +209,12 @@ function Navbar() {
                           <i className="me-2"></i> Dashboard
                         </button>
                       </li>
+                      <li>
+                        <Link className="dropdown-item" to="/sign-up">
+                          <i className="bi bi-person-plus me-2 text-success"></i>
+                          Sign Up
+                        </Link>
+                      </li>
                     </>
                   )}
                 </ul>

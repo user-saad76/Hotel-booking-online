@@ -6,6 +6,7 @@ import { usePost } from "../hook/usePost";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthProvider";
 import { Navigate } from "react-router";
+import { toast } from "react-toastify";
 
 // ✅ Zod Schema for Login Validation
 const loginSchema = z.object({
@@ -39,13 +40,13 @@ function SignInForm() {
  console.log(data);
  
 
-  const onSubmit = async(data) => {
-    console.log("Login Data:", data);
-    alert("✅ Logged in successfully!");
-    await postData(data)
-   // navigate('/');
-    window.location.href='/'
-  };
+   const onSubmit = async(data) => {
+   console.log("Login Data:", data);
+    toast.success("✅ Logged in successfully!");
+     await postData(data)
+    // navigate('/');
+     window.location.href='/'
+   };
 
   return (
     <div className="container mt-5">
